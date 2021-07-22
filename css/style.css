@@ -119,7 +119,6 @@ body {
 
 .animais-lista::-webkit-scrollbar-track {
   background-color: #faf6ed
-  
 }
 
 .animais-descricao {
@@ -197,19 +196,37 @@ body {
 
 /* TAB NAVIGATION */
 
-.js .js-tabcontent section {
+.js [data-tab="content"] section {
   display: none;
 }
 
-.js-tabcontent section.ativo {
+[data-tab="content"] section.ativo {
   display: block !important;
-  animation: show .5s forwards;
 }
 
-@keyframes show {
+[data-tab="content"] section.ativo.show-right {
+  animation: show-right .5s forwards;
+}
+
+[data-tab="content"] section.ativo.show-down {
+  animation: show-down .5s forwards;
+}
+
+@keyframes show-right {
   from {
     opacity: 0;
     transform: translate3d(-30px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes show-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30px, 0);
   }
   to {
     opacity: 1;
@@ -232,11 +249,11 @@ body {
   content: '⬏';
 }
 
-.js .js-accordion dd {
+.js [data-anime="accordion"] dd {
   display: none;
 }
 
-.js .js-accordion dd.ativo {
+.js [data-anime="accordion"] dd.ativo {
   display: block;
   animation: slideDown .5s forwards;
 }
@@ -251,6 +268,21 @@ body {
     max-height: 200px;
   }
 }
+
+/* ANIMAÇÃO AO SCROLL */
+
+.js [data-anime="scroll"] {
+  opacity: 0;
+  transform: translate3d(-30px, 0, 0);
+  transition: .4s;
+}
+
+.js [data-anime="scroll"].ativo {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+
 
 /* FIM DOS EFEITOS JAVASCRIPT */
 

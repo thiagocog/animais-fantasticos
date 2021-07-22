@@ -1,6 +1,6 @@
 function initTabNav() {
-  const tabMenu = document.querySelectorAll('.js-tabmenu li');
-  const tabContent = document.querySelectorAll('.js-tabcontent section');
+  const tabMenu = document.querySelectorAll('[data-tab="menu"] li');
+  const tabContent = document.querySelectorAll('[data-tab="content"] section');
 
   if (tabMenu.length && tabContent.length) {
 
@@ -10,7 +10,8 @@ function initTabNav() {
       tabContent.forEach((element) => {
         element.classList.remove('ativo');
       });
-      tabContent[index].classList.add('ativo');
+      const direcao = tabContent[index].dataset.anime
+      tabContent[index].classList.add('ativo', direcao);
     };
 
     tabMenu.forEach((element, index) => {
@@ -25,7 +26,7 @@ initTabNav();
 
 
 function initAccordion() {
-  const accordionList = document.querySelectorAll('.js-accordion dt');
+  const accordionList = document.querySelectorAll('[data-anime="accordion"] dt');
   const activeClass = 'ativo';
 
   if (accordionList.length) {
@@ -46,7 +47,7 @@ initAccordion();
 
 
 function initScrollSuave() {
-  const linksInternos = document.querySelectorAll('.js-menu a[href^="#"]');
+  const linksInternos = document.querySelectorAll('[data-menu="suave"] a[href^="#"]');
 
   if (linksInternos.length) {
     function scrollToSection(event) {
@@ -74,15 +75,22 @@ function initScrollSuave() {
 initScrollSuave();
 
 
-const sections = document.querySelectorAll('.js-scroll')
-
-function animaScroll() {
-  sections.forEach((section) => {
-    const sectionTop = section.getBoundingClientRect().top
-    if (sectionTop < 0) {
-      section.classList.add('ativo')
+function initAnimacaoScroll() {
+  const sections = document.querySelectorAll('[data-anime="scroll"]')
+  if (sections.length) {
+    const windowMetade = window.innerHeight * 0.6
+    function animaScroll() {
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top
+        const isSectionVisible = (sectionTop - windowMetade) < 0
+        if (isSectionVisible) 
+          section.classList.add('ativo')
+        else 
+          section.classList.remove('ativo')
+      })
     }
-  })
+    animaScroll()
+    window.addEventListener('scroll', animaScroll)
+  }
 }
-
-window.addEventListener('scroll', animaScroll)
+initAnimacaoScroll()
