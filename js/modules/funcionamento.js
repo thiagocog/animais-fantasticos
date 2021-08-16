@@ -12,7 +12,6 @@ export default function initFuncionamento() {
   const horarioAberto = horarioAgora >= horarioSemana[0] && horarioAgora < horarioSemana[1]
 
   if (semanaAberto && horarioAberto) {
-    console.log('Aberto');
     funcionamento.classList.add('aberto')
   }
 
